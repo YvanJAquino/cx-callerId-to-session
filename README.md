@@ -2,7 +2,7 @@
 The provided webhook copies the `telephony` payload into the WebhookResponse's session parameters.  It does not 'over-write' any existing parameters unless there is an existing `"caller_id"` session parameter.
 
 # As-Is Disclaimer
- No Software Warranty. User acknowledges and agrees that the use of the Software is at User’s sole risk. The Software and related documentation are provided “AS IS” and without any warranty of any kind.  The maintainer of this github repository EXPRESSLY DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License..
 
 # Usage
 ## Requirements

@@ -41,5 +41,5 @@ steps:
         --no-allow-unauthenticated
 
 substitutions:
-  _SERVICE: cx-callerId-to-session
+  _SERVICE: cx-callerid-to-session
   _REGION: us-central1
