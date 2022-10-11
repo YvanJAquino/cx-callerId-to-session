@@ -7,9 +7,17 @@ The provided webhook copies the `telephony` payload into the WebhookResponse's s
   1. Edit Dialogflow CX Agent definitions (make and assign webhooks)
   2. Create and Store container images in the Container Registry
   3. Define and deploy Cloud Run services.
+  4. The Cloudbuild (cloudbuild.googleapis.com) must be enabled and configured to define and create Cloud Run Services 
 - It is recommended to host the Cloud Run service that hosts the webhook in the same project where the Dialogflow Virtual Agent exists.  
 
 ## Instructions
+Start by cloning a copy of this repository and switching directories:
+
+```shell
+git clone https://github.com/YvanJAquino/cx-callerId-to-session.git
+cd cx-callerId-to-session
+```
+
 Review the provided cloudbuild.yaml's Cloud Run configuration (see step id:`gcloud-run-deploy-cx-callerId-to-session`).  Once reviewed, run `gcloud builds submit` from Cloud Shell.  This will create and store the container within Google Cloud's container registry and then create the Cloud Run service that hosts the Webhook.  
 
 Once the Cloud Run service is ready, copy the provided URL, and append the Handler's path (`/inject-callerId`) to it: 
@@ -44,6 +52,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"log"
 	"os"
 
@@ -63,9 +72,22 @@ func main() {
 
 }
 
+// CxCallerIdInjectionHandler copies the telephony payload into the
+// responses SessionInfo.Parameters.  It does not override any other parameters
 func CxCallerIdInjectionHandler(res *ezcx.WebhookResponse, req *ezcx.WebhookRequest) error {
+	// Check if the payload is empty.
 	payload := req.GetPayload()
-	telephony := payload["telephony"].(map[string]any)
+	if payload == nil {
+		return errors.New("ERROR: No payload found")
+	}
+
+	// Check if there was actually a telephony payload.
+	telephony, ok := payload["telephony"].(map[string]any)
+	if !ok {
+		return errors.New("ERROR: No telephony payload found")
+	}
+	
+	// Add the telephony payload to the session parameters.
 	err := res.AddSessionParameters(telephony)
 	if err != nil {
 		return err
