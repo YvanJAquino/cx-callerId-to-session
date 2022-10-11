@@ -60,16 +60,6 @@ func TestServer(t *testing.T) {
 	io.Copy(os.Stdout, res.Body)
 }
 
-func TestProtoUnmarshalTest(t *testing.T) {
-	var whreq ezcx.WebhookRequest
-	rd := strings.NewReader(sampleWebhookString)
-	err := whreq.ReadReader(rd)
-	if err != nil {
-		t.Fatal(err)
-	}
-	t.Log(whreq.SessionInfo)
-}
-
 func TestServerFromRawSample(t *testing.T) {
 	r := strings.NewReader(sampleWebhookString)
 	httpReq := httptest.NewRequest(http.MethodPost, "/inject-callerId", r)
