@@ -1,9 +1,6 @@
 # Dialogflow CX Telephony Payload to Session Parameters Injector
 The provided webhook copies the `telephony` payload into the WebhookResponse's session parameters.  It does not 'over-write' any existing parameters unless there is an existing `"caller_id"` session parameter.
 
-# As-Is Disclaimer
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License..
-
 # Usage
 ## Requirements
 - Make sure you have sufficient IAM permissions to: 
@@ -76,3 +73,6 @@ func CxCallerIdInjectionHandler(res *ezcx.WebhookResponse, req *ezcx.WebhookRequ
 	return nil
 }
 ```
+
+# As-Is Disclaimer
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
