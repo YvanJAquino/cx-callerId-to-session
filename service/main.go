@@ -16,6 +16,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"log"
 	"os"
 
@@ -39,7 +40,14 @@ func main() {
 // responses SessionInfo.Parameters.  It does not override any other parameters
 func CxCallerIdInjectionHandler(res *ezcx.WebhookResponse, req *ezcx.WebhookRequest) error {
 	payload := req.GetPayload()
-	telephony := payload["telephony"].(map[string]any)
+	if payload == nil {
+		return errors.New("ERROR: No payload found")
+	}
+	telephony, ok := payload["telephony"].(map[string]any)
+	if !ok {
+		return errors.New("ERROR: No telephony payload found")
+	}
+
 	err := res.AddSessionParameters(telephony)
 	if err != nil {
 		return err

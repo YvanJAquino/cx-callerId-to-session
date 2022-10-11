@@ -2,7 +2,7 @@ module github.com/YvanJAquino/cx-callerId-to-session/service
 
 go 1.18
 
-require github.com/yaq-cc/ezcx v0.0.0-20221010192144-fef9ee630577
+require github.com/yaq-cc/ezcx v0.0.0-20221011155745-6c57729117e5
 
 require (
 	github.com/golang/protobuf v1.5.2 // indirect
