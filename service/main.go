@@ -39,15 +39,19 @@ func main() {
 // CxCallerIdInjectionHandler copies the telephony payload into the
 // responses SessionInfo.Parameters.  It does not override any other parameters
 func CxCallerIdInjectionHandler(res *ezcx.WebhookResponse, req *ezcx.WebhookRequest) error {
+	// Check if the payload is empty.
 	payload := req.GetPayload()
 	if payload == nil {
 		return errors.New("ERROR: No payload found")
 	}
+
+	// Check if there was actually a telephony payload.
 	telephony, ok := payload["telephony"].(map[string]any)
 	if !ok {
 		return errors.New("ERROR: No telephony payload found")
 	}
-
+	
+	// Add the telephony payload to the session parameters.
 	err := res.AddSessionParameters(telephony)
 	if err != nil {
 		return err
