@@ -42,13 +42,13 @@ func CxCallerIdInjectionHandler(res *ezcx.WebhookResponse, req *ezcx.WebhookRequ
 	// Check if the payload is empty.
 	payload := req.GetPayload()
 	if payload == nil {
-		return errors.New("ERROR: No payload found")
+		return errors.New("ERROR: no payload found")
 	}
 
 	// Check if there was actually a telephony payload.
 	telephony, ok := payload["telephony"].(map[string]any)
 	if !ok {
-		return errors.New("ERROR: No telephony payload found")
+		return errors.New("ERROR: no telephony payload found")
 	}
 	
 	// Add the telephony payload to the session parameters.
